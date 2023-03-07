@@ -1,5 +1,4 @@
-#define RX_LED 5
-#define TX_LED 17
+#include "WT32-ETH01_demo.h"
 
 
 void setup()
@@ -12,12 +11,12 @@ void setup()
 
 void loop()
 {
-	digitalWrite( RX_LED, HIGH );
-	digitalWrite( TX_LED, LOW );
+	digitalWrite( RX_LED, LED_ON );
+	digitalWrite( TX_LED, LED_OFF );
 	Serial.println( "LED on" );
 	delay( 1000 );
-	digitalWrite( RX_LED, LOW );
-	digitalWrite( TX_LED, HIGH );
+	digitalWrite( RX_LED, LED_OFF );
+	digitalWrite( TX_LED, LED_ON );
 	Serial.println( "LED off" );
 	delay( 1000 );
 }

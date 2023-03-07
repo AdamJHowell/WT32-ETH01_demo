@@ -5,6 +5,7 @@ set( CMAKE_CXX_STANDARD 17 )
 
 add_executable( WT32-ETH01_demo
 		WT32-ETH01_demo.ino
+		WT32-ETH01_demo.h
 		Network.ino
 		Network.h
 		privateInfo.h
