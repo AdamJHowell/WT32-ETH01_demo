@@ -13,6 +13,7 @@
 #else
 #include <ESPmDNS.h> // Library for multicast DNS, needed for Over-The-Air updates.
 #endif               // ESP8266
+#include <ArduinoJson.h>
 #include <Ethernet.h>
 
 
@@ -23,13 +24,16 @@ const char *IP_TOPIC                 = "ip";                   // The IP address
 const char *MQTT_COUNT_TOPIC         = "mqttCount";            // The MQTT count topic suffix.
 const char *MQTT_COOLDOWN_TOPIC      = "mqttCoolDownInterval"; // The MQTT cooldown count topic suffix.
 const char *PUBLISH_COUNT_TOPIC      = "publishCount";         // The publishCount topic suffix.
+const unsigned int JSON_DOC_SIZE     = 1024;
 unsigned int mqttConnectCount        = 0;
 unsigned int publishCount            = 0;
+unsigned int callbackCount           = 0;
 unsigned long lastMqttConnectionTime = 0;
 unsigned long mqttCoolDownInterval   = 10000;
 unsigned long publishInterval        = 20000;
+unsigned long lastPublishTime        = 0;
 bool publishNow                      = false;
-
+const int mqttPort = 1883;
 
 EthernetClient ethClient;
 PubSubClient mqttClient( ethClient );
@@ -39,7 +43,7 @@ void lookupMQTTCode( int code, String buffer );
 void configureOTA();
 void publishTelemetry();
 void mqttCallback( char *topic, byte *payload, unsigned int length );
-void mqttConnect();
+void mqttConnect( const char *mqttBroker );
 
 
 #endif //ESPSHT30BMP280MQTT_NETWORK_H
