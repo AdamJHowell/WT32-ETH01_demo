@@ -6,10 +6,13 @@ void setup()
 	pinMode( RX_LED, OUTPUT );
 	pinMode( TX_LED, OUTPUT );
 	Serial.begin( 115200 );
-	//	snprintf( macAddress, 18, "%s", EthernetClient.macAddress().c_str() );
-	//	snprintf( ipAddress, 16, "%d.%d.%d.%d", WiFi.localIP()[0], WiFi.localIP()[1], WiFi.localIP()[2], WiFi.localIP()[3] );
 
-	byte mac[]                     = { 0xC4, 0xDE, 0xE2, 0xB2, 0xC5, 0xD0 };
+	if( !Serial )
+		delay( MILLIS_IN_SEC );
+	Serial.println( "\nSetup is initiating..." );
+
+	byte mac[] = { 0xC4, 0xDE, 0xE2, 0xB2, 0xC5, 0xD0 };
+	Serial.println( "MAC variable created." );
 	int status = Ethernet.begin( mac );
 	if( status == 0 )
 	{
@@ -69,11 +72,50 @@ void deviceRestart()
 }
 
 
+/**
+ * @brief toggleLED() will change the state of the LED.
+ * This function does not manage any timings.
+ */
+void toggleLED()
+{
+	if( digitalRead( LED_PIN ) != LED_ON )
+		digitalWrite( LED_PIN, LED_ON );
+	else
+		digitalWrite( LED_PIN, LED_OFF );
+} // End of toggleLED() function.
+
+
 void loop()
 {
 	if( !mqttClient.connected() )
 		mqttConnect( "adamh-dt-2019.west.faircom.com" );
 	mqttClient.loop();
+
+	unsigned long currentTime = millis();
+	// Publish the first currentTime.  Avoid subtraction overflow.  Publish every interval.
+	if( lastPublishTime == 0 || ( currentTime > publishInterval && ( currentTime - publishInterval ) > lastPublishTime ) )
+	{
+		publishCount++;
+		publishTelemetry();
+		lastPublishTime = millis();
+	}
+
+	currentTime = millis();
+	// Process the first currentTime.  Avoid subtraction overflow.  Process every interval.
+	if( lastLedBlinkTime == 0 || ( ( currentTime > LED_BLINK_INTERVAL ) && ( currentTime - LED_BLINK_INTERVAL ) > lastLedBlinkTime ) )
+	{
+		// If Wi-Fi is connected, but MQTT is not, blink the LED.
+		if( WiFi.status() == WL_CONNECTED )
+		{
+			if( mqttClient.state() != 0 )
+				toggleLED();
+			else
+				digitalWrite( LED_PIN, LED_ON ); // Turn the LED on to show both Wi-Fi and MQTT are connected.
+		}
+		else
+			digitalWrite( LED_PIN, LED_OFF ); // Turn the LED off to show that Wi-Fi is not connected.
+		lastLedBlinkTime = millis();
+	}
 
 	digitalWrite( RX_LED, LED_ON );
 	digitalWrite( TX_LED, LED_OFF );

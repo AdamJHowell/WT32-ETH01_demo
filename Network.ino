@@ -176,6 +176,7 @@ void mqttConnect( const char *mqttBroker )
 	}
 } // End of the mqttConnect() function.
 
+
 /**
  * @brief publishTelemetry() will process incoming messages on subscribed topics.
  */
@@ -210,6 +211,7 @@ void publishTelemetry()
 	if( mqttClient.publish( topicBuffer, valueBuffer ) )
 		Serial.printf( "Publishing '%s' to '%s'\n", valueBuffer, topicBuffer );
 } // End of the publishTelemetry() function.
+
 
 /**
  * @brief mqttCallback() will process incoming messages on subscribed topics.
