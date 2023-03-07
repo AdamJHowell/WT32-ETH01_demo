@@ -78,10 +78,18 @@ void deviceRestart()
  */
 void toggleLED()
 {
-	if( digitalRead( LED_PIN ) != LED_ON )
-		digitalWrite( LED_PIN, LED_ON );
+	if( digitalRead( TX_LED ) != LED_ON )
+	{
+		digitalWrite( RX_LED, LED_OFF );
+		digitalWrite( TX_LED, LED_ON );
+		Serial.println( "LED on" );
+	}
 	else
-		digitalWrite( LED_PIN, LED_OFF );
+	{
+		digitalWrite( RX_LED, LED_ON );
+		digitalWrite( TX_LED, LED_OFF );
+		Serial.println( "LED off" );
+	}
 } // End of toggleLED() function.
 
 
@@ -104,25 +112,7 @@ void loop()
 	// Process the first currentTime.  Avoid subtraction overflow.  Process every interval.
 	if( lastLedBlinkTime == 0 || ( ( currentTime > LED_BLINK_INTERVAL ) && ( currentTime - LED_BLINK_INTERVAL ) > lastLedBlinkTime ) )
 	{
-		// If Wi-Fi is connected, but MQTT is not, blink the LED.
-		if( WiFi.status() == WL_CONNECTED )
-		{
-			if( mqttClient.state() != 0 )
-				toggleLED();
-			else
-				digitalWrite( LED_PIN, LED_ON ); // Turn the LED on to show both Wi-Fi and MQTT are connected.
-		}
-		else
-			digitalWrite( LED_PIN, LED_OFF ); // Turn the LED off to show that Wi-Fi is not connected.
+		toggleLED();
 		lastLedBlinkTime = millis();
 	}
-
-	digitalWrite( RX_LED, LED_ON );
-	digitalWrite( TX_LED, LED_OFF );
-	Serial.println( "LED on" );
-	delay( 1000 );
-	digitalWrite( RX_LED, LED_OFF );
-	digitalWrite( TX_LED, LED_ON );
-	Serial.println( "LED off" );
-	delay( 1000 );
 }
