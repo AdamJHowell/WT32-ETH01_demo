@@ -8,6 +8,7 @@
 
 #include "Network.h"
 #include "privateInfo.h"
+#include "HardwareSerial.h"
 
 
 const unsigned int RX_LED             = 5;    // The GPIO that the RX LED uses.
