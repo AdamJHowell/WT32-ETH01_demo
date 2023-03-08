@@ -1,6 +1,10 @@
 #include "WT32-ETH01_demo.h"
 
 
+// The MAC address for this board is C4:DE:E2:B2:C5:D0
+byte mac[] = { 0xC4, 0xDE, 0xE2, 0xB2, 0xC5, 0xD0 };
+
+
 void setup()
 {
 	pinMode( RX_LED, OUTPUT );
@@ -11,8 +15,6 @@ void setup()
 		delay( MILLIS_IN_SEC );
 	Serial.println( "\nSetup is initiating..." );
 
-	byte mac[] = { 0xC4, 0xDE, 0xE2, 0xB2, 0xC5, 0xD0 };
-	Serial.println( "MAC variable created." );
 	int status = Ethernet.begin( mac );
 	if( status == 0 )
 	{

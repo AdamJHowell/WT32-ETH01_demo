@@ -5,7 +5,7 @@
  * @brief lookupMQTTCode() will return the string for an integer state code.
  * The string values are taken from PubSubClient.h
  */
-void lookupMQTTCode( int code, String buffer )
+void lookupMQTTCode( const int code, String buffer )
 {
 	switch( code )
 	{

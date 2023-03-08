@@ -1,5 +1,5 @@
-#ifndef ESPSHT30BMP280MQTT_NETWORK_H
-#define ESPSHT30BMP280MQTT_NETWORK_H
+#ifndef WT32_ETH01_DEMO_NETWORK_H
+#define WT32_ETH01_DEMO_NETWORK_H
 
 
 #include "PubSubClient.h" // MQTT client by Nick O'Leary: https://github.com/knolleary/pubsubclient
@@ -46,4 +46,4 @@ void mqttCallback( char *topic, byte *payload, unsigned int length );
 void mqttConnect( const char *mqttBroker );
 
 
-#endif //ESPSHT30BMP280MQTT_NETWORK_H
+#endif // WT32_ETH01_DEMO_NETWORK_H
