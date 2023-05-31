@@ -33,7 +33,8 @@ unsigned long mqttCoolDownInterval   = 10000;
 unsigned long publishInterval        = 20000;
 unsigned long lastPublishTime        = 0;
 bool publishNow                      = false;
-const int mqttPort = 1883;
+//const char *mqttBrokerAddress        = "nunya"; // Defined in privateInfo.h
+//const unsigned int mqttBrokerPort    = 1883;    // Defined in privateInfo.h
 
 EthernetClient ethClient;
 PubSubClient mqttClient( ethClient );
@@ -43,7 +44,7 @@ void lookupMQTTCode( int code, String buffer );
 void configureOTA();
 void publishTelemetry();
 void mqttCallback( char *topic, byte *payload, unsigned int length );
-void mqttConnect( const char *mqttBroker );
+void mqttConnect( const char *mqttBrokerAddress, unsigned int mqttBrokerPort );
 
 
 #endif // WT32_ETH01_DEMO_NETWORK_H

@@ -15,7 +15,9 @@ void setup()
 		delay( MILLIS_IN_SEC );
 	Serial.println( "\nSetup is initiating..." );
 
+	Serial.println( "About to start the Ethernet chip..." );
 	int status = Ethernet.begin( mac );
+	Serial.printf( "Ethernet status: %d\n", status );
 	if( status == 0 )
 	{
 		Serial.println( "Failed to configure Ethernet using DHCP!" );
@@ -98,7 +100,7 @@ void toggleLED()
 void loop()
 {
 	if( !mqttClient.connected() )
-		mqttConnect( "adamh-dt-2019.west.faircom.com" );
+		mqttConnect( mqttBrokerAddress, mqttBrokerPort );
 	mqttClient.loop();
 
 	unsigned long currentTime = millis();

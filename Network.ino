@@ -138,7 +138,7 @@ void configureOTA()
 /**
  * @brief mqttConnect() will connect to the MQTT broker.
  */
-void mqttConnect( const char *mqttBroker )
+void mqttConnect( const char *mqttBroker, const unsigned int mqttPort )
 {
 	long time = millis();
 	// Connect the first time.  Avoid subtraction overflow.  Connect after cool down.

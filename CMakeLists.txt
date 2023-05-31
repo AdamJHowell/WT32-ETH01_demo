@@ -6,6 +6,7 @@ set( CMAKE_CXX_STANDARD 17 )
 
 include_directories( .
 		C:/Code/Arduino/libraries/ArduinoJson/
+		"C:/Users/Adam Howell/AppData/Local/Arduino15/packages/esp32/hardware/esp32/2.0.7/tools/sdk/esp32s3/include/lwip/lwip/src/include/netif"
 		"C:/Users/Adam/AppData/Local/Arduino15/packages/esp32/hardware/esp32/2.0.7/cores/esp32"
 		"C:/Users/Adam/AppData/Local/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
 		"C:/Users/Adam/AppData/Local/Arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include"
