@@ -9,6 +9,7 @@
 #include "Network.h"
 #include "privateInfo.h"
 #include "HardwareSerial.h"
+#include <array>
 
 
 const unsigned int RX_LED             = 5;    // The GPIO that the RX LED uses.
@@ -19,7 +20,8 @@ const unsigned int MILLIS_IN_SEC      = 1000; // The number of milliseconds in o
 const unsigned int LED_BLINK_INTERVAL = 200;  // The time between LED blinks.
 unsigned long lastLedBlinkTime        = 0;    // The time of the last LED state change.
 char macAddress[18];                          // The MAC address of the WiFi NIC.
-char ipAddress[16];                           // The IP address given to the device.
+//char ipAddress[16];                           // The IP address given to the device.
+std::array<char, 16>  ipAddress;
 
 void deviceRestart();
 
